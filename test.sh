@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Create a 5-second video with a blue background and a moving red square
-ffmpeg -y -f lavfi -t 5 -i color=c=blue:s=3840x2160:r=60 \
-       -f lavfi -t 5 -i color=c=red:s=60x60:r=60 \
-       -filter_complex "[0][1]overlay=x='if(eq(n,1),0,if(lte(n,300),n*(3840-60)/300,3840-60))':y='if(eq(n,1),0,if(lte(n,300),n*(2160-60)/300,2160-60))':eval=frame" \
+ffmpeg -y -f lavfi -t 5 -i color=c=blue:s=3840x2160:r=30 \
+       -f lavfi -t 5 -i color=c=red:s=100x100:r=30 \
+       -filter_complex "[0][1]overlay=x='if(eq(n,1),0,if(lte(n,150),n*(3840-100)/150,3840-100))':y='if(eq(n,1),0,if(lte(n,150),n*(2160-100)/150,2160-100))':eval=frame" \
        -c:v libx264 -pix_fmt yuv420p -crf 18 ./output.mp4
 
 # Extract the first frame as a high-quality JPEG
